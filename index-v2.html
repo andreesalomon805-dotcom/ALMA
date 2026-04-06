@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALMA Consultorio Infantil — Psicología Infantil en Honduras</title>
+  <meta name="description" content="En ALMA consultorio infantil comprendemos que cada niño es único. Combinamos expertise clínico con un espacio seguro diseñado para que cada niño florezca.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sage: { DEFAULT: '#1B2A4A', light: '#2D4A7A', dark: '#0F1A2E' },
+            cream: '#FFF8F0',
+            coral: { light: '#FDE8DF', DEFAULT: '#F2B89C' },
+            mint: { light: '#E4F0E9', DEFAULT: '#95B5A4' },
+            lavender: { light: '#F0E4F6', DEFAULT: '#C9A8D8' },
+            sunny: { light: '#FFF8E1', DEFAULT: '#EDD06A' },
+            rose: { light: '#FADADD', DEFAULT: '#F0C0C0' },
+            surface: '#FFF8F0',
+            'surface-low': '#FFF3E8',
+            'surface-lowest': '#FFFFFF',
+            'surface-high': '#FDE8D8',
+            gold: '#D4A853',
+            modal: '#1B2A4A',
+          },
+          fontFamily: {
+            serif: ['Fredoka', 'sans-serif'],
+            sans: ['Nunito', 'sans-serif'],
+          },
+          borderRadius: {
+            full: '9999px',
+            '4xl': '2rem',
+            '5xl': '2.5rem',
+            '6xl': '4rem',
+          },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Nunito', sans-serif; background: #FFF8F0; color: #1B2A4A; overflow-x: hidden; }
+    h1, h2, h3, h4, h5 { font-family: 'Fredoka', sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+    /* Glassmorphism nav */
+    .nav-glass {
+      background: rgba(255, 248, 240, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .nav-glass.scrolled {
+      background: rgba(255, 248, 240, 0.94);
+      box-shadow: 0 4px 30px rgba(27, 42, 74, 0.08);
+    }
+
+    /* Organic blob */
+    @keyframes blobMorph {
+      0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+      25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+      50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
+      75% { border-radius: 60% 30% 60% 40% / 60% 40% 30% 70%; }
+    }
+    .blob-shape { animation: blobMorph 12s ease-in-out infinite; }
+
+    /* Quote pulse blob */
+    @keyframes pulseSlow {
+      0%, 100% { transform: scale(1); opacity: 0.15; }
+      50% { transform: scale(1.15); opacity: 0.25; }
+    }
+    .pulse-blob { animation: pulseSlow 6s ease-in-out infinite; }
+
+    /* Floating icons */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-18px) rotate(8deg); }
+    }
+    .float-icon { animation: floatSlow 5s ease-in-out infinite; }
+    .float-icon-delayed { animation: floatSlow 6s ease-in-out infinite; animation-delay: -2s; }
+    .float-icon-delayed2 { animation: floatSlow 7s ease-in-out infinite; animation-delay: -4s; }
+
+    /* 3D tilt cards */
+    .tilt-card {
+      perspective: 1000px;
+      transform-style: preserve-3d;
+    }
+    .tilt-card-inner {
+      transition: transform 0.5s cubic-bezier(0.03, 0.98, 0.52, 0.99);
+      transform-style: preserve-3d;
+    }
+    .tilt-card:hover .tilt-card-inner {
+      transform: rotateY(5deg) rotateX(5deg) translateZ(10px);
+    }
+
+    /* Service image tilt */
+    .service-img-wrap {
+      perspective: 800px;
+    }
+    .service-img-wrap img {
+      transition: transform 0.6s cubic-bezier(0.03, 0.98, 0.52, 0.99);
+      transform-style: preserve-3d;
+    }
+    .service-img-wrap:hover img {
+      transform: rotateY(-6deg) rotateX(4deg) scale(1.03);
+    }
+
+    /* Gallery hover */
+    .gallery-item { overflow: hidden; position: relative; }
+    .gallery-item img {
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-label {
+      background: rgba(255, 249, 240, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: opacity 0.4s;
+      opacity: 0;
+    }
+    .gallery-item:hover .gallery-label { opacity: 1; }
+
+    /* CTA hover lift */
+    .cta-lift {
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .cta-lift:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(27, 42, 74, 0.18);
+    }
+
+    /* Form card lift */
+    .form-glass {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+    .form-glass:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(27, 42, 74, 0.1);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      background: rgba(28, 24, 40, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    /* Scroll reveal base */
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* Hero canvas */
+    #heroCanvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+
+    /* Mobile menu */
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .mobile-menu.open { transform: translateX(0); }
+
+    /* Badge chip */
+    .badge-chip {
+      border-radius: 9999px;
+      padding: 4px 14px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Smooth arch shape */
+    .arch-clip {
+      clip-path: ellipse(50% 48% at 50% 52%);
+    }
+    @media (min-width: 768px) {
+      .arch-clip {
+        clip-path: inset(0 round 200px 200px 40px 40px);
+      }
+    }
+
+    /* WhatsApp float */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 900;
+      width: 60px; height: 60px; border-radius: 9999px;
+      background: #25D366; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .wa-float:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(37, 211, 102, 0.45); }
+
+    /* Spring modal animation */
+    @keyframes modalSpring {
+      0% { transform: scale(0.85) translateY(40px); opacity: 0; }
+      60% { transform: scale(1.02) translateY(-4px); opacity: 1; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .modal-content-anim { animation: modalSpring 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+    /* ===== 3D ENHANCEMENTS ===== */
+
+    /* Mouse-tracking tilt (JS-driven) */
+    .tilt-3d {
+      perspective: 1200px;
+    }
+    .tilt-3d-inner {
+      transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    .tilt-3d-inner .tilt-3d-shine {
+      position: absolute; inset: 0; border-radius: inherit;
+      background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .tilt-3d:hover .tilt-3d-shine { opacity: 1; }
+
+    /* 3D Flip cards for methodology */
+    .flip-card {
+      perspective: 1200px;
+      cursor: pointer;
+    }
+    .flip-card-container {
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .flip-card:hover .flip-card-container,
+    .flip-card.flipped .flip-card-container {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .flip-card-back {
+      position: absolute; inset: 0;
+      transform: rotateY(180deg);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+
+    /* Floating 3D spheres */
+    @keyframes sphere-float-1 {
+      0%, 100% { transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg); }
+      25% { transform: translate3d(15px, -20px, 30px) rotateX(45deg) rotateY(90deg); }
+      50% { transform: translate3d(-10px, -35px, 15px) rotateX(90deg) rotateY(180deg); }
+      75% { transform: translate3d(20px, -15px, 40px) rotateX(135deg) rotateY(270deg); }
+    }
+    @keyframes sphere-float-2 {
+      0%, 100% { transform: translate3d(0, 0, 0) rotateX(0deg); }
+      33% { transform: translate3d(-20px, -25px, 20px) rotateX(120deg); }
+      66% { transform: translate3d(15px, -40px, 35px) rotateX(240deg); }
+    }
+    .sphere-3d {
+      position: absolute;
+      border-radius: 50%;
+      transform-style: preserve-3d;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .sphere-3d::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), transparent 60%);
+    }
+    .sphere-3d-1 {
+      width: 60px; height: 60px;
+      background: radial-gradient(circle at 40% 35%, #F2B89C, #E89B78);
+      box-shadow: 0 8px 32px rgba(242, 184, 156, 0.4), inset 0 -4px 12px rgba(0,0,0,0.1);
+      animation: sphere-float-1 8s ease-in-out infinite;
+    }
+    .sphere-3d-2 {
+      width: 40px; height: 40px;
+      background: radial-gradient(circle at 40% 35%, #C9A8D8, #B08DC5);
+      box-shadow: 0 6px 24px rgba(201, 168, 216, 0.4), inset 0 -3px 8px rgba(0,0,0,0.1);
+      animation: sphere-float-2 10s ease-in-out infinite;
+    }
+    .sphere-3d-3 {
+      width: 50px; height: 50px;
+      background: radial-gradient(circle at 40% 35%, #95B5A4, #7DA08E);
+      box-shadow: 0 7px 28px rgba(149, 181, 164, 0.4), inset 0 -3px 10px rgba(0,0,0,0.1);
+      animation: sphere-float-1 12s ease-in-out infinite reverse;
+    }
+    .sphere-3d-4 {
+      width: 35px; height: 35px;
+      background: radial-gradient(circle at 40% 35%, #EDD06A, #D4B84E);
+      box-shadow: 0 5px 20px rgba(237, 208, 106, 0.4), inset 0 -2px 6px rgba(0,0,0,0.1);
+      animation: sphere-float-2 9s ease-in-out infinite;
+    }
+
+    /* Hero text 3D entrance */
+    .hero-3d-text {
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+
+    /* Scroll-driven 3D section reveal */
+    .section-3d {
+      transform-style: preserve-3d;
+      perspective: 1500px;
+    }
+
+    /* 3D depth shadow on images */
+    .depth-shadow {
+      position: relative;
+      transform-style: preserve-3d;
+    }
+    .depth-shadow::after {
+      content: '';
+      position: absolute;
+      bottom: -12px; left: 8%; right: 8%;
+      height: 40px;
+      background: radial-gradient(ellipse, rgba(27,42,74,0.15), transparent 70%);
+      border-radius: 50%;
+      transform: translateZ(-20px) rotateX(80deg);
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    /* Staggered card entrance */
+    .stagger-child {
+      opacity: 0;
+      transform: translateY(60px) rotateX(15deg);
+      transform-origin: bottom center;
+    }
+    .stagger-child.revealed {
+      opacity: 1;
+      transform: translateY(0) rotateX(0deg);
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Parallax mouse layer */
+    .mouse-parallax-layer {
+      transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    /* Testimonial dots */
+    .testimonial-dot {
+      width: 8px; height: 8px; border-radius: 9999px;
+      background: rgba(27,42,74,0.15);
+      border: none; cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .testimonial-dot.active {
+      width: 28px; height: 8px;
+      background: #F2B89C;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sphere-3d, .flip-card-container, .tilt-3d-inner, .mouse-parallax-layer,
+      .stagger-child, .hero-3d-text {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+      }
+      .flip-card:hover .flip-card-container { transform: none; }
+    }
+
+    /* ===== LUXURY ADDITIONS ===== */
+
+    /* Scroll progress rainbow bar */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, #F2B89C 0%, #C9A8D8 35%, #95B5A4 65%, #EDD06A 100%);
+      z-index: 200; border-radius: 0 3px 3px 0;
+      transition: width 0.08s linear;
+      box-shadow: 0 0 10px rgba(242,184,156,0.6);
+    }
+
+    /* Custom cursor ring */
+    .cursor-follower {
+      position: fixed; width: 42px; height: 42px;
+      border: 2px solid rgba(242,184,156,0.55);
+      border-radius: 50%; pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.35s cubic-bezier(0.34,1.56,0.64,1),
+                  height 0.35s cubic-bezier(0.34,1.56,0.64,1),
+                  border-color 0.35s ease, opacity 0.3s ease;
+    }
+    .cursor-dot-center {
+      position: fixed; width: 5px; height: 5px;
+      background: #F2B89C; border-radius: 50%; pointer-events: none;
+      z-index: 9999; transform: translate(-50%, -50%);
+    }
+
+    /* Enhanced reveal — blur + Y (luxury feel) */
+    .reveal { opacity: 0; transform: translateY(50px); filter: blur(6px);
+      transition: opacity 0.95s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.95s cubic-bezier(0.4, 0, 0.2, 1),
+                  filter 0.95s cubic-bezier(0.4, 0, 0.2, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+    /* Marquee ticker */
+    @keyframes marquee-run {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-track { animation: marquee-run 22s linear infinite; white-space: nowrap; display: flex; }
+    .marquee-track:hover { animation-play-state: paused; }
+
+    /* Floating decorative rings */
+    @keyframes ring-drift {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      33%  { transform: translate(18px, -22px) rotate(120deg) scale(1.08); }
+      66%  { transform: translate(-12px, -14px) rotate(240deg) scale(0.94); }
+    }
+    .ring-deco {
+      position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
+      border: 1.5px solid; animation: ring-drift 14s ease-in-out infinite;
+    }
+    .ring-deco-1 { width:140px; height:140px; border-color:rgba(201,168,216,0.22); top:8%; right:6%; animation-delay:0s; }
+    .ring-deco-2 { width:220px; height:220px; border-color:rgba(149,181,164,0.15); top:30%; left:2%; animation-delay:-5s; animation-duration:20s; }
+    .ring-deco-3 { width:80px;  height:80px;  border-color:rgba(242,184,156,0.3);  bottom:15%; right:18%; animation-delay:-9s; animation-duration:11s; }
+    .ring-deco-4 { width:180px; height:180px; border-color:rgba(237,208,106,0.15); bottom:8%; left:12%; animation-delay:-3s; animation-duration:18s; }
+
+    /* Smooth scroll-driven section entrance (clip-path wipe) */
+    .section-wipe {
+      clip-path: inset(4% 0 4% 0 round 2rem);
+      transition: clip-path 1.4s cubic-bezier(0.76, 0, 0.24, 1);
+    }
+    .section-wipe.active { clip-path: inset(0 0 0 0 round 0); }
+
+    /* Luxury number / stat counter style */
+    .stat-num {
+      font-feature-settings: 'tnum'; tabular-nums: 1;
+      background: linear-gradient(135deg, #1B2A4A 0%, #C9A8D8 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+
+<body class="bg-cream font-sans">
+
+  <!-- Scroll progress rainbow bar -->
+  <div id="scroll-progress"></div>
+
+  <!-- Custom cursor (desktop only) -->
+  <div class="cursor-follower"></div>
+  <div class="cursor-dot-center"></div>
+
+  <!-- HERO CANVAS (particles) -->
+  <canvas id="heroCanvas"></canvas>
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="nav-glass fixed top-0 left-0 w-full z-50 px-5 md:px-10 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="#inicio" class="flex items-center gap-0 text-2xl font-bold tracking-wide" aria-label="ALMA">
+        <span class="font-serif" style="color:#F2B89C">A</span><span class="font-serif" style="color:#95B5A4">L</span><span class="font-serif relative" style="color:#C9A8D8">M<span class="absolute -top-2 left-1/2 -translate-x-1/2 flex gap-[2px]"><svg width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 7C1 4 3 1 4 1S6 4 6 7" stroke="#95B5A4" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M8 7C8 4 10 1 11 1S13 4 13 7" stroke="#95B5A4" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></span></span><span class="font-serif" style="color:#EDD06A">A</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#inicio" class="text-sm font-medium text-sage/80 hover:text-sage transition-colors">Inicio</a>
+        <a href="#servicios" class="text-sm font-medium text-sage/80 hover:text-sage transition-colors">Servicios</a>
+        <a href="#vision" class="text-sm font-medium text-sage/80 hover:text-sage transition-colors">Nuestra Visión</a>
+        <a href="#contacto" class="text-sm font-medium text-sage/80 hover:text-sage transition-colors">Contacto</a>
+        <a href="https://wa.me/50431673301" target="_blank" class="cta-lift bg-sage text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-sage-dark">
+          Agendar Sesión
+        </a>
+      </div>
+      <button id="menuToggle" class="md:hidden text-sage">
+        <span class="material-symbols-outlined text-3xl">menu</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobileMenu" class="mobile-menu fixed inset-0 z-[60] bg-cream/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8">
+    <button id="menuClose" class="absolute top-5 right-5 text-sage">
+      <span class="material-symbols-outlined text-3xl">close</span>
+    </button>
+    <a href="#inicio" class="mobile-link font-serif text-2xl text-sage">Inicio</a>
+    <a href="#servicios" class="mobile-link font-serif text-2xl text-sage">Servicios</a>
+    <a href="#vision" class="mobile-link font-serif text-2xl text-sage">Nuestra Visión</a>
+    <a href="#contacto" class="mobile-link font-serif text-2xl text-sage">Contacto</a>
+    <a href="https://wa.me/50431673301" target="_blank" class="cta-lift bg-sage text-white font-semibold px-8 py-3 rounded-full text-lg">
+      Agendar Sesión
+    </a>
+  </div>
+
+  <!-- ========== SECTION 1: HERO ========== -->
+  <section id="inicio" class="relative min-h-screen flex items-center pt-24 pb-20 overflow-hidden">
+    <!-- 3D Floating Spheres -->
+    <div class="sphere-3d sphere-3d-1 mouse-parallax-layer" data-speed="3" style="top:15%;left:8%"></div>
+    <div class="sphere-3d sphere-3d-2 mouse-parallax-layer" data-speed="5" style="top:60%;right:12%"></div>
+    <div class="sphere-3d sphere-3d-3 mouse-parallax-layer" data-speed="2" style="bottom:20%;left:15%"></div>
+    <div class="sphere-3d sphere-3d-4 mouse-parallax-layer" data-speed="4" style="top:30%;right:25%"></div>
+
+    <div class="max-w-7xl mx-auto px-5 md:px-10 w-full relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <!-- Left -->
+        <div class="reveal hero-3d-text">
+          <span class="inline-block badge-chip bg-sage/10 text-sage mb-6">EL ARTE DE CRECER</span>
+          <h1 class="font-serif text-4xl md:text-5xl lg:text-[3.4rem] leading-tight font-bold text-sage-dark mb-6">
+            Tu hijo es un universo. Nosotros lo acompañamos en su crecimiento.
+          </h1>
+          <p class="text-base md:text-lg text-sage/70 leading-relaxed mb-8 max-w-xl font-light">
+            En ALMA consultorio infantil comprendemos que cada niño es único. Combinamos expertise clínico de vanguardia con un espacio seguro diseñado para que cada niño se sienta libre de ser, sentir y florecer.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#servicios" class="cta-lift bg-sage text-white font-semibold px-7 py-3 rounded-full text-sm">
+              Explorar Metodología
+            </a>
+            <a href="#vision" class="cta-lift text-sage font-semibold px-7 py-3 rounded-full text-sm border-2 border-sage/20 hover:border-sage/40 bg-transparent">
+              Conoce nuestro equipo &rarr;
+            </a>
+          </div>
+        </div>
+        <!-- Right: blob image -->
+        <div class="relative reveal flex justify-center mouse-parallax-layer" data-speed="1.5">
+          <div class="blob-shape depth-shadow w-72 h-72 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] overflow-hidden bg-sage/10">
+            <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=800&fit=crop" alt="Niña feliz" class="w-full h-full object-cover">
+          </div>
+          <!-- Floating icons -->
+          <div class="float-icon absolute top-4 right-4 md:top-8 md:right-0 bg-white/80 backdrop-blur-sm w-12 h-12 rounded-full flex items-center justify-center shadow-lg">
+            <span class="material-symbols-outlined text-sunny">sunny</span>
+          </div>
+          <div class="float-icon-delayed absolute bottom-8 left-0 md:bottom-12 md:-left-4 bg-coral-light/80 backdrop-blur-sm w-11 h-11 rounded-full flex items-center justify-center shadow-lg">
+            <span class="material-symbols-outlined text-coral">favorite</span>
+          </div>
+          <div class="float-icon-delayed2 absolute top-1/2 -left-6 md:-left-10 bg-sage/10 backdrop-blur-sm w-10 h-10 rounded-full flex items-center justify-center shadow-md">
+            <span class="material-symbols-outlined text-sage">auto_awesome</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP / METHODOLOGY -->
+  <section class="py-16 md:py-20 bg-surface-low">
+    <div class="max-w-7xl mx-auto px-5 md:px-10">
+      <div class="text-center mb-12 reveal">
+        <span class="badge-chip bg-sage/10 text-sage mb-4 inline-block">Fundamentos Clínicos</span>
+        <h2 class="font-serif text-2xl md:text-3xl text-sage-dark font-bold">Nuestra metodología de acompañamiento</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+        <!-- Flip Card 1 -->
+        <div class="flip-card reveal" style="min-height:280px">
+          <div class="flip-card-container h-full">
+            <div class="flip-card-front bg-surface-lowest rounded-4xl p-8 text-center h-full">
+              <div class="w-14 h-14 rounded-full bg-coral-light flex items-center justify-center mx-auto mb-5">
+                <span class="material-symbols-outlined text-coral text-2xl">psychology</span>
+              </div>
+              <h3 class="font-serif text-lg font-bold text-sage-dark mb-3">Cognitivo-Conductual</h3>
+              <p class="text-sm text-sage/60 leading-relaxed">Técnicas basadas en evidencia para modificar patrones de pensamiento y comportamiento de manera positiva.</p>
+            </div>
+            <div class="flip-card-back bg-sage rounded-4xl p-8 text-center">
+              <span class="material-symbols-outlined text-coral text-4xl mb-4">psychology</span>
+              <h3 class="font-serif text-lg font-bold text-white mb-3">Incluye</h3>
+              <ul class="text-sm text-white/70 space-y-2 text-left">
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-coral text-base">check</span> Reestructuración cognitiva</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-coral text-base">check</span> Técnicas de relajación</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-coral text-base">check</span> Economía de fichas</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-coral text-base">check</span> Modelado conductual</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Flip Card 2 -->
+        <div class="flip-card reveal" style="min-height:280px">
+          <div class="flip-card-container h-full">
+            <div class="flip-card-front bg-surface-lowest rounded-4xl p-8 text-center h-full">
+              <div class="w-14 h-14 rounded-full bg-lavender-light flex items-center justify-center mx-auto mb-5">
+                <span class="material-symbols-outlined text-lavender text-2xl">toys</span>
+              </div>
+              <h3 class="font-serif text-lg font-bold text-sage-dark mb-3">Terapia de Juego</h3>
+              <p class="text-sm text-sage/60 leading-relaxed">El juego como vehículo terapéutico para que los niños expresen y procesen sus emociones naturalmente.</p>
+            </div>
+            <div class="flip-card-back bg-sage rounded-4xl p-8 text-center">
+              <span class="material-symbols-outlined text-lavender text-4xl mb-4">toys</span>
+              <h3 class="font-serif text-lg font-bold text-white mb-3">Incluye</h3>
+              <ul class="text-sm text-white/70 space-y-2 text-left">
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-lavender text-base">check</span> Juego simbólico</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-lavender text-base">check</span> Arte terapia</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-lavender text-base">check</span> Sandplay therapy</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-lavender text-base">check</span> Juegos de rol</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Flip Card 3 -->
+        <div class="flip-card reveal" style="min-height:280px">
+          <div class="flip-card-container h-full">
+            <div class="flip-card-front bg-surface-lowest rounded-4xl p-8 text-center h-full">
+              <div class="w-14 h-14 rounded-full bg-sunny-light flex items-center justify-center mx-auto mb-5">
+                <span class="material-symbols-outlined text-sunny text-2xl">neurology</span>
+              </div>
+              <h3 class="font-serif text-lg font-bold text-sage-dark mb-3">Integración Sensorial</h3>
+              <p class="text-sm text-sage/60 leading-relaxed">Abordaje del procesamiento sensorial para mejorar la regulación y respuesta del niño a su entorno.</p>
+            </div>
+            <div class="flip-card-back bg-sage rounded-4xl p-8 text-center">
+              <span class="material-symbols-outlined text-sunny text-4xl mb-4">neurology</span>
+              <h3 class="font-serif text-lg font-bold text-white mb-3">Incluye</h3>
+              <ul class="text-sm text-white/70 space-y-2 text-left">
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sunny text-base">check</span> Dieta sensorial</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sunny text-base">check</span> Estimulación vestibular</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sunny text-base">check</span> Propiocepción</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sunny text-base">check</span> Autorregulación</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 2: SERVICIOS ========== -->
+  <section id="servicios" class="py-28 md:py-36">
+    <div class="max-w-7xl mx-auto px-5 md:px-10">
+      <div class="text-center mb-20 reveal">
+        <span class="badge-chip bg-sage/10 text-sage mb-4 inline-block">Servicios</span>
+        <h2 class="font-serif text-3xl md:text-4xl lg:text-[2.8rem] text-sage-dark font-bold max-w-2xl mx-auto leading-snug">
+          Un acompañamiento diseñado para su crecimiento natural.
+        </h2>
+      </div>
+
+      <!-- Service 1: Evaluación Neuropsicológica -->
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-28 reveal">
+        <div class="service-img-wrap order-2 lg:order-1">
+          <img src="neuropsicologia.jpeg" alt="Evaluación Neuropsicológica" class="w-full h-80 md:h-[28rem] object-cover rounded-[3rem]">
+        </div>
+        <div class="order-1 lg:order-2">
+          <span class="badge-chip bg-sage/10 text-sage mb-4 inline-block">01</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold text-sage-dark mb-2">Evaluación Neuropsicológica</h3>
+          <p class="font-serif text-lg text-sage/70 italic mb-4">El mapa de su potencial</p>
+          <p class="text-sage/70 leading-relaxed mb-6">Diagnóstico profesional del desarrollo emocional y cognitivo. Identificamos fortalezas y áreas de apoyo para crear un plan personalizado de crecimiento.</p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="badge-chip bg-sage/8 text-sage/80">COGNITIVO</span>
+            <span class="badge-chip bg-sage/8 text-sage/80">EMOCIONAL</span>
+            <span class="badge-chip bg-sage/8 text-sage/80">DIAGNÓSTICO</span>
+            <span class="badge-chip bg-sage/8 text-sage/80">PERSONALIZADO</span>
+          </div>
+          <div class="flex gap-3">
+            <button onclick="openModal(0)" class="cta-lift bg-sage text-white text-sm font-semibold px-6 py-2.5 rounded-full">Ver Detalles</button>
+            <a href="https://wa.me/50431673301?text=Hola,%20me%20interesa%20Evaluación%20Neuropsicológica" target="_blank" class="cta-lift flex items-center gap-2 bg-[#25D366] text-white text-sm font-semibold px-5 py-2.5 rounded-full">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.472A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.17 0-4.19-.614-5.907-1.677l-.424-.252-2.742.874.873-2.666-.277-.44A9.798 9.798 0 012.182 12c0-5.423 4.395-9.818 9.818-9.818 5.423 0 9.818 4.395 9.818 9.818 0 5.423-4.395 9.818-9.818 9.818z"/></svg>
+              WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 2: Terapia de Juego -->
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-28 reveal">
+        <div class="order-1">
+          <span class="badge-chip bg-lavender-light text-lavender mb-4 inline-block">02</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold text-sage-dark mb-2">Terapia de Juego y Regulación Emocional</h3>
+          <p class="font-serif text-lg italic mb-4" style="color:#7B4FA6">Sanar en su lenguaje</p>
+          <p class="text-sage/70 leading-relaxed mb-6">A través del juego terapéutico, los niños expresan y procesan sus emociones de forma natural. Un camino hacia el equilibrio emocional adaptado a cada etapa.</p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="badge-chip bg-lavender-light" style="color:#6B3D94">TERAPIA DE JUEGO</span>
+            <span class="badge-chip bg-lavender-light" style="color:#6B3D94">REGULACIÓN</span>
+            <span class="badge-chip bg-lavender-light" style="color:#6B3D94">EMOCIONAL</span>
+            <span class="badge-chip bg-lavender-light" style="color:#6B3D94">TODAS LAS EDADES</span>
+          </div>
+          <div class="flex gap-3">
+            <button onclick="openModal(1)" class="cta-lift bg-sage text-white text-sm font-semibold px-6 py-2.5 rounded-full">Ver Detalles</button>
+            <a href="https://wa.me/50431673301?text=Hola,%20me%20interesa%20Terapia%20de%20Juego" target="_blank" class="cta-lift flex items-center gap-2 bg-[#25D366] text-white text-sm font-semibold px-5 py-2.5 rounded-full">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.472A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.17 0-4.19-.614-5.907-1.677l-.424-.252-2.742.874.873-2.666-.277-.44A9.798 9.798 0 012.182 12c0-5.423 4.395-9.818 9.818-9.818 5.423 0 9.818 4.395 9.818 9.818 0 5.423-4.395 9.818-9.818 9.818z"/></svg>
+              WhatsApp
+            </a>
+          </div>
+        </div>
+        <div class="service-img-wrap order-2">
+          <img src="terapia-juego.jpeg" alt="Terapia de Juego" class="w-full h-80 md:h-[28rem] object-cover rounded-full">
+        </div>
+      </div>
+
+      <!-- Service 3: TDAH -->
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-28 reveal">
+        <div class="service-img-wrap order-2 lg:order-1">
+          <img src="TDAH.jpeg" alt="Evaluación TDAH" class="w-full h-80 md:h-[28rem] object-cover rounded-[4rem]">
+        </div>
+        <div class="order-1 lg:order-2">
+          <span class="badge-chip bg-sunny-light text-sunny mb-4 inline-block">03</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold text-sage-dark mb-2">Evaluación y Manejo de TDAH</h3>
+          <p class="font-serif text-lg italic mb-4" style="color:#8B6A00">De la distracción al enfoque</p>
+          <p class="text-sage/70 leading-relaxed mb-6">Evaluación completa del trastorno por déficit de atención. Estrategias prácticas y acompañamiento continuo para padres y niños.</p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="badge-chip bg-sunny-light" style="color:#7A5C00">CONCENTRACIÓN</span>
+            <span class="badge-chip bg-sunny-light" style="color:#7A5C00">CONDUCTA</span>
+            <span class="badge-chip bg-sunny-light" style="color:#7A5C00">ESTRATEGIAS</span>
+            <span class="badge-chip bg-sunny-light" style="color:#7A5C00">DIAGNÓSTICO</span>
+          </div>
+          <div class="flex gap-3">
+            <button onclick="openModal(2)" class="cta-lift bg-sage text-white text-sm font-semibold px-6 py-2.5 rounded-full">Ver Detalles</button>
+            <a href="https://wa.me/50431673301?text=Hola,%20me%20interesa%20Evaluación%20y%20Manejo%20de%20TDAH" target="_blank" class="cta-lift flex items-center gap-2 bg-[#25D366] text-white text-sm font-semibold px-5 py-2.5 rounded-full">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.472A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.17 0-4.19-.614-5.907-1.677l-.424-.252-2.742.874.873-2.666-.277-.44A9.798 9.798 0 012.182 12c0-5.423 4.395-9.818 9.818-9.818 5.423 0 9.818 4.395 9.818 9.818 0 5.423-4.395 9.818-9.818 9.818z"/></svg>
+              WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 4: Orientación Vocacional -->
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center reveal">
+        <div class="order-1">
+          <span class="badge-chip bg-mint-light text-mint mb-4 inline-block">04</span>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold text-sage-dark mb-2">Orientación Vocacional</h3>
+          <p class="font-serif text-lg text-sage/70 italic mb-4">Decidir con propósito</p>
+          <p class="text-sage/70 leading-relaxed mb-6">Descubrimiento de habilidades, talentos e intereses para jóvenes. Un proceso guiado hacia decisiones de vida con claridad y confianza.</p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="badge-chip bg-mint-light" style="color:#276050">HABILIDADES</span>
+            <span class="badge-chip bg-mint-light" style="color:#276050">TALENTOS</span>
+            <span class="badge-chip bg-mint-light" style="color:#276050">INTERESES</span>
+            <span class="badge-chip bg-mint-light" style="color:#276050">JÓVENES</span>
+          </div>
+          <div class="flex gap-3">
+            <button onclick="openModal(3)" class="cta-lift bg-sage text-white text-sm font-semibold px-6 py-2.5 rounded-full">Ver Detalles</button>
+            <a href="https://wa.me/50431673301?text=Hola,%20me%20interesa%20Orientación%20Vocacional" target="_blank" class="cta-lift flex items-center gap-2 bg-[#25D366] text-white text-sm font-semibold px-5 py-2.5 rounded-full">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.472A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.17 0-4.19-.614-5.907-1.677l-.424-.252-2.742.874.873-2.666-.277-.44A9.798 9.798 0 012.182 12c0-5.423 4.395-9.818 9.818-9.818 5.423 0 9.818 4.395 9.818 9.818 0 5.423-4.395 9.818-9.818 9.818z"/></svg>
+              WhatsApp
+            </a>
+          </div>
+        </div>
+        <div class="service-img-wrap order-2">
+          <img src="orientacion-vocacional.jpeg" alt="Orientación Vocacional" class="w-full h-80 md:h-[28rem] object-cover rounded-[3rem] rounded-tr-full">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== LUXURY MARQUEE DIVIDER ========== -->
+  <div class="overflow-hidden py-5 bg-surface-low border-y border-sage/6 select-none">
+    <div class="marquee-track gap-0">
+      <span class="inline-flex items-center gap-6 px-4 text-sage/25 text-sm font-semibold tracking-widest uppercase">
+        <span>ALMA</span><span class="text-coral/40">✦</span>
+        <span>Bienestar</span><span class="text-lavender/40">✦</span>
+        <span>Psicología Infantil</span><span class="text-mint/40">✦</span>
+        <span>Terapia de Juego</span><span class="text-sunny/40">✦</span>
+        <span>Neuropsicología</span><span class="text-coral/40">✦</span>
+        <span>Crecimiento</span><span class="text-lavender/40">✦</span>
+        <span>Infancia</span><span class="text-mint/40">✦</span>
+        <span>Emociones</span><span class="text-sunny/40">✦</span>
+        <span>ALMA</span><span class="text-coral/40">✦</span>
+        <span>Bienestar</span><span class="text-lavender/40">✦</span>
+        <span>Psicología Infantil</span><span class="text-mint/40">✦</span>
+        <span>Terapia de Juego</span><span class="text-sunny/40">✦</span>
+        <span>Neuropsicología</span><span class="text-coral/40">✦</span>
+        <span>Crecimiento</span><span class="text-lavender/40">✦</span>
+        <span>Infancia</span><span class="text-mint/40">✦</span>
+        <span>Emociones</span><span class="text-sunny/40">✦</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 3: NUESTRA VISIÓN ========== -->
+  <section id="vision" class="py-28 md:py-36 bg-surface-low relative overflow-hidden">
+    <!-- Background blob -->
+    <div class="pulse-blob absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-sage/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <!-- Floating decorative rings -->
+    <div class="ring-deco ring-deco-1"></div>
+    <div class="ring-deco ring-deco-2"></div>
+    <div class="ring-deco ring-deco-3"></div>
+    <div class="ring-deco ring-deco-4"></div>
+
+    <div class="max-w-7xl mx-auto px-5 md:px-10 relative z-10">
+      <!-- Portrait + Bio -->
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-28">
+        <div class="flex justify-center reveal">
+          <div class="overflow-hidden shadow-2xl" style="width:248px;height:390px;border-radius:50%;background:#FFF3E8">
+            <img src="ana-lucia.png" alt="Ana Lucía Martínez" class="w-full h-full object-contain">
+          </div>
+        </div>
+        <div class="reveal">
+          <span class="badge-chip bg-sage/10 text-sage mb-4 inline-block">Dirección Clínica</span>
+          <h2 class="font-serif text-3xl md:text-4xl font-bold text-sage-dark mb-4">Ana Lucía Martínez</h2>
+          <p class="text-sage/70 leading-relaxed mb-6 text-base md:text-lg">
+            Fundadora de ALMA y especialista en neuropsicología infantil, Ana Lucía ha dedicado años a redefinir el acompañamiento terapéutico, priorizando la conexión humana.
+          </p>
+          <p class="text-sage/50 text-sm leading-relaxed">
+            Su filosofía se centra en entender que detrás de cada comportamiento hay una emoción, y detrás de cada emoción hay un niño que necesita ser escuchado.
+          </p>
+        </div>
+      </div>
+
+      <!-- Editorial Quote -->
+      <div class="text-center mb-28 reveal relative">
+        <div class="pulse-blob absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-lavender-light/40 rounded-full blur-[80px] pointer-events-none"></div>
+        <blockquote class="font-serif text-3xl md:text-5xl lg:text-6xl text-sage-dark font-bold leading-tight max-w-4xl mx-auto relative z-10">
+          &ldquo;No tratamos diagnósticos, acompañamos personas&rdquo;
+        </blockquote>
+      </div>
+
+      <!-- Trust Pillars -->
+      <div class="grid md:grid-cols-3 gap-6 md:gap-8 mb-28">
+        <div class="tilt-card reveal">
+          <div class="tilt-card-inner bg-surface-lowest rounded-4xl p-8 h-full">
+            <div class="w-12 h-12 rounded-full bg-coral-light flex items-center justify-center mb-5">
+              <span class="material-symbols-outlined text-coral">biotech</span>
+            </div>
+            <h3 class="font-serif text-xl font-bold text-sage-dark mb-3">Ciencia con Empatía</h3>
+            <p class="text-sm text-sage/60 leading-relaxed">Métodos basados en evidencia científica, aplicados con la calidez y sensibilidad que cada familia merece.</p>
+          </div>
+        </div>
+        <div class="tilt-card reveal">
+          <div class="tilt-card-inner bg-surface-lowest rounded-4xl p-8 h-full">
+            <div class="w-12 h-12 rounded-full bg-lavender-light flex items-center justify-center mb-5">
+              <span class="material-symbols-outlined text-lavender">shield_with_heart</span>
+            </div>
+            <h3 class="font-serif text-xl font-bold text-sage-dark mb-3">Espacios Seguros</h3>
+            <p class="text-sm text-sage/60 leading-relaxed">Un ambiente diseñado para que los niños se sientan protegidos, cómodos y libres de explorar sus emociones.</p>
+          </div>
+        </div>
+        <div class="tilt-card reveal">
+          <div class="tilt-card-inner bg-surface-lowest rounded-4xl p-8 h-full">
+            <div class="w-12 h-12 rounded-full bg-sunny-light flex items-center justify-center mb-5">
+              <span class="material-symbols-outlined text-sunny">forum</span>
+            </div>
+            <h3 class="font-serif text-xl font-bold text-sage-dark mb-3">Comunicación Constante</h3>
+            <p class="text-sm text-sage/60 leading-relaxed">Mantenemos a los padres informados y participativos en cada etapa del proceso terapéutico de su hijo.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento Gallery -->
+      <div class="reveal">
+        <h3 class="font-serif text-2xl font-bold text-sage-dark mb-8 text-center">Nuestro Espacio</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[200px] md:auto-rows-[240px]">
+          <div class="gallery-item rounded-4xl col-span-2 row-span-1 md:row-span-2">
+            <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&h=600&fit=crop" alt="Sala de espera" class="w-full h-full object-cover rounded-4xl">
+            <div class="gallery-label absolute bottom-4 left-4 px-4 py-2 rounded-full text-xs font-semibold text-sage-dark">Sala de Espera</div>
+          </div>
+          <div class="gallery-item rounded-4xl">
+            <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=400&h=600&fit=crop" alt="Área de juego" class="w-full h-full object-cover rounded-4xl">
+            <div class="gallery-label absolute bottom-4 left-4 px-4 py-2 rounded-full text-xs font-semibold text-sage-dark">Área de Juego</div>
+          </div>
+          <div class="gallery-item rounded-4xl">
+            <img src="https://images.unsplash.com/photo-1604881991720-f91add269bed?w=400&h=600&fit=crop" alt="Consultorio" class="w-full h-full object-cover rounded-4xl">
+            <div class="gallery-label absolute bottom-4 left-4 px-4 py-2 rounded-full text-xs font-semibold text-sage-dark">Consultorio</div>
+          </div>
+          <div class="gallery-item rounded-4xl col-span-2">
+            <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&h=600&fit=crop" alt="Biblioteca" class="w-full h-full object-cover rounded-4xl">
+            <div class="gallery-label absolute bottom-4 left-4 px-4 py-2 rounded-full text-xs font-semibold text-sage-dark">Biblioteca</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 4: CONTACTO ========== -->
+  <section id="contacto" class="py-28 md:py-36">
+    <div class="max-w-7xl mx-auto px-5 md:px-10">
+      <!-- Contact Header -->
+      <div class="text-center mb-16 reveal">
+        <span class="badge-chip bg-sage/10 text-sage mb-4 inline-block">Contacto</span>
+        <h2 class="font-serif text-3xl md:text-5xl font-bold text-sage-dark mb-4">Hablemos hoy</h2>
+        <p class="text-sage/60 text-lg max-w-xl mx-auto">Cada gran cambio comienza con una pequeña conversación.</p>
+      </div>
+
+      <div class="max-w-2xl mx-auto mb-28 reveal">
+        <!-- Form -->
+          <div class="form-glass rounded-4xl p-10 md:p-14">
+            <h3 class="font-serif text-xl font-bold text-sage-dark mb-6">Escríbenos</h3>
+            <form onsubmit="event.preventDefault(); window.open('https://wa.me/50431673301?text=Hola,%20me%20gustaría%20agendar%20una%20cita','_blank')">
+              <div class="mb-5">
+                <label class="block text-sm font-medium text-sage/70 mb-2">Nombre del pequeño</label>
+                <input type="text" placeholder="Ej: Mateo" class="w-full px-5 py-3 rounded-full bg-surface-low border-none outline-none text-sm text-sage-dark placeholder:text-sage/30 focus:ring-2 focus:ring-sage/20 transition-shadow">
+              </div>
+              <div class="mb-5">
+                <label class="block text-sm font-medium text-sage/70 mb-2">Edad del pequeño</label>
+                <select class="w-full px-5 py-3 rounded-full bg-surface-low border-none outline-none text-sm text-sage-dark focus:ring-2 focus:ring-sage/20 transition-shadow appearance-none cursor-pointer">
+                  <option value="" disabled selected>Selecciona la edad</option>
+                  <option value="3">3 años</option>
+                  <option value="4">4 años</option>
+                  <option value="5">5 años</option>
+                  <option value="6">6 años</option>
+                  <option value="7">7 años</option>
+                  <option value="8">8 años</option>
+                  <option value="9">9 años</option>
+                  <option value="10">10 años</option>
+                  <option value="11">11 años</option>
+                  <option value="12">12 años</option>
+                </select>
+              </div>
+              <div class="mb-5">
+                <label class="block text-sm font-medium text-sage/70 mb-2">Correo electrónico</label>
+                <input type="email" placeholder="tu@correo.com" class="w-full px-5 py-3 rounded-full bg-surface-low border-none outline-none text-sm text-sage-dark placeholder:text-sage/30 focus:ring-2 focus:ring-sage/20 transition-shadow">
+              </div>
+              <div class="mb-6">
+                <label class="block text-sm font-medium text-sage/70 mb-2">Mensaje</label>
+                <textarea rows="4" placeholder="Cuéntanos cómo podemos ayudarte..." class="w-full px-5 py-3 rounded-3xl bg-surface-low border-none outline-none text-sm text-sage-dark placeholder:text-sage/30 focus:ring-2 focus:ring-sage/20 transition-shadow resize-none"></textarea>
+              </div>
+              <button type="submit" class="cta-lift bg-sage text-white font-semibold px-8 py-3 rounded-full text-sm w-full md:w-auto">
+                Enviar Mensaje
+              </button>
+            </form>
+
+            <div class="mt-8 pt-6 border-t border-sage/10 flex flex-wrap gap-4">
+              <a href="https://wa.me/50431673301" target="_blank" class="flex items-center gap-2 text-sm text-sage/70 hover:text-sage transition-colors">
+                <span class="material-symbols-outlined text-[#25D366]">chat</span>
+                WhatsApp Directo
+              </a>
+              <a href="tel:+50431673301" class="flex items-center gap-2 text-sm text-sage/70 hover:text-sage transition-colors">
+                <span class="material-symbols-outlined text-sage">call</span>
+                +504 3167-3301
+              </a>
+            </div>
+          </div>
+      </div>
+
+      <!-- ===== TESTIMONIALS: FULL-WIDTH PREMIUM SECTION ===== -->
+      <div class="mt-24 mb-8 reveal">
+        <div class="text-center mb-12">
+          <span class="badge-chip bg-sage/10 text-sage mb-4 inline-block">Familias ALMA</span>
+          <h3 class="font-serif text-4xl md:text-5xl font-bold text-sage-dark">Historias que inspiran</h3>
+        </div>
+
+        <!-- Carousel wrapper -->
+        <div class="relative overflow-hidden max-w-4xl mx-auto px-4" id="testimonialSlider">
+          <div id="testimonialTrack" class="flex items-stretch transition-transform duration-700 ease-in-out">
+
+            <!-- T1 -->
+            <div class="testimonial-card flex-shrink-0 w-full md:w-1/2 px-4">
+              <div class="relative rounded-[2.5rem] overflow-hidden group h-full" style="background:#1B2A4A">
+                <div class="absolute top-0 left-0 w-1 h-full" style="background:#F2B89C"></div>
+                <div class="p-10 md:p-12 h-full flex flex-col">
+                  <div class="text-[9rem] leading-none font-serif mb-2" style="color:#F2B89C;opacity:0.25">&ldquo;</div>
+                  <p class="text-white/80 text-lg leading-relaxed italic flex-1 -mt-14">Desde que Mateo comenzó en ALMA, su mundo cambió. Ahora expresa lo que siente sin frustración. Encontramos un lugar que realmente entiende a los niños.</p>
+                  <div class="flex gap-0.5 my-4">
+                    <span style="color:#EDD06A;font-size:20px">★★★★★</span>
+                  </div>
+                  <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&h=120&fit=crop&crop=face" alt="Mamá de Mateo" class="w-20 h-20 rounded-full object-cover ring-2 ring-coral/50">
+                    <div>
+                      <p class="font-semibold text-white text-base">Mamá de Mateo</p>
+                      <p class="text-sm mt-1" style="color:#F2B89C">Mateo, 5 años · Terapia de Juego</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- T2 -->
+            <div class="testimonial-card flex-shrink-0 w-full md:w-1/2 px-4">
+              <div class="relative rounded-[2.5rem] overflow-hidden group h-full" style="background:#1B2A4A">
+                <div class="absolute top-0 left-0 w-1 h-full" style="background:#95B5A4"></div>
+                <div class="p-10 md:p-12 h-full flex flex-col">
+                  <div class="text-[9rem] leading-none font-serif mb-2" style="color:#95B5A4;opacity:0.25">&ldquo;</div>
+                  <p class="text-white/80 text-lg leading-relaxed italic flex-1 -mt-14">Con la evaluación de ALMA entendimos exactamente qué le pasaba a Sofía. Hoy tiene estrategias claras y su rendimiento escolar mejoró increíblemente.</p>
+                  <div class="flex gap-0.5 my-4">
+                    <span style="color:#EDD06A;font-size:20px">★★★★★</span>
+                  </div>
+                  <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face" alt="Papá de Sofía" class="w-20 h-20 rounded-full object-cover ring-2 ring-mint/50">
+                    <div>
+                      <p class="font-semibold text-white text-base">Papá de Sofía</p>
+                      <p class="text-sm mt-1" style="color:#95B5A4">Sofía, 8 años · Evaluación TDAH</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- T3 -->
+            <div class="testimonial-card flex-shrink-0 w-full md:w-1/2 px-4">
+              <div class="relative rounded-[2.5rem] overflow-hidden group h-full" style="background:#1B2A4A">
+                <div class="absolute top-0 left-0 w-1 h-full" style="background:#C9A8D8"></div>
+                <div class="p-10 md:p-12 h-full flex flex-col">
+                  <div class="text-[9rem] leading-none font-serif mb-2" style="color:#C9A8D8;opacity:0.25">&ldquo;</div>
+                  <p class="text-white/80 text-lg leading-relaxed italic flex-1 -mt-14">Lucas llegó con rabietas incontrolables. En solo tres meses aprendió a identificar sus emociones. El equipo de ALMA es extraordinario, profesional y humano.</p>
+                  <div class="flex gap-0.5 my-4">
+                    <span style="color:#EDD06A;font-size:20px">★★★★★</span>
+                  </div>
+                  <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&fit=crop&crop=face" alt="Mamá de Lucas" class="w-20 h-20 rounded-full object-cover ring-2 ring-lavender/50">
+                    <div>
+                      <p class="font-semibold text-white text-base">Mamá de Lucas</p>
+                      <p class="text-sm mt-1" style="color:#C9A8D8">Lucas, 7 años · Regulación Emocional</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- T4 -->
+            <div class="testimonial-card flex-shrink-0 w-full md:w-1/2 px-4">
+              <div class="relative rounded-[2.5rem] overflow-hidden group h-full" style="background:#1B2A4A">
+                <div class="absolute top-0 left-0 w-1 h-full" style="background:#EDD06A"></div>
+                <div class="p-10 md:p-12 h-full flex flex-col">
+                  <div class="text-[9rem] leading-none font-serif mb-2" style="color:#EDD06A;opacity:0.25">&ldquo;</div>
+                  <p class="text-white/80 text-lg leading-relaxed italic flex-1 -mt-14">La orientación vocacional le dio a Valentina la claridad que necesitaba. Ahora sabe cuáles son sus fortalezas y enfrenta los retos con mucha más confianza.</p>
+                  <div class="flex gap-0.5 my-4">
+                    <span style="color:#EDD06A;font-size:20px">★★★★★</span>
+                  </div>
+                  <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=face" alt="Papá de Valentina" class="w-20 h-20 rounded-full object-cover ring-2 ring-sunny/50">
+                    <div>
+                      <p class="font-semibold text-white text-base">Papá de Valentina</p>
+                      <p class="text-sm mt-1" style="color:#EDD06A">Valentina, 10 años · Orientación Vocacional</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- T5 -->
+            <div class="testimonial-card flex-shrink-0 w-full md:w-1/2 px-4">
+              <div class="relative rounded-[2.5rem] overflow-hidden group h-full" style="background:#1B2A4A">
+                <div class="absolute top-0 left-0 w-1 h-full" style="background:#F2B89C"></div>
+                <div class="p-10 md:p-12 h-full flex flex-col">
+                  <div class="text-[9rem] leading-none font-serif mb-2" style="color:#F2B89C;opacity:0.25">&ldquo;</div>
+                  <p class="text-white/80 text-lg leading-relaxed italic flex-1 -mt-14">La evaluación neuropsicológica nos dio respuestas que buscábamos hace años. Gracias a ALMA, Emilio tiene un plan de apoyo real y ve la escuela con otros ojos.</p>
+                  <div class="flex gap-0.5 my-4">
+                    <span style="color:#EDD06A;font-size:20px">★★★★★</span>
+                  </div>
+                  <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=120&h=120&fit=crop&crop=face" alt="Mamá de Emilio" class="w-20 h-20 rounded-full object-cover ring-2 ring-coral/50">
+                    <div>
+                      <p class="font-semibold text-white text-base">Mamá de Emilio</p>
+                      <p class="text-sm mt-1" style="color:#F2B89C">Emilio, 6 años · Neuropsicología</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Dots + arrows -->
+        <div class="flex items-center justify-center gap-6 mt-8">
+          <button id="tPrev" class="w-10 h-10 rounded-full border border-sage/20 flex items-center justify-center text-sage/50 hover:text-sage hover:border-sage/50 transition-all">
+            <span class="material-symbols-outlined text-lg">arrow_back</span>
+          </button>
+          <div class="flex gap-2" id="testimonialDots">
+            <button class="testimonial-dot" data-index="0"></button>
+            <button class="testimonial-dot" data-index="1"></button>
+            <button class="testimonial-dot" data-index="2"></button>
+            <button class="testimonial-dot" data-index="3"></button>
+            <button class="testimonial-dot" data-index="4"></button>
+          </div>
+          <button id="tNext" class="w-10 h-10 rounded-full border border-sage/20 flex items-center justify-center text-sage/50 hover:text-sage hover:border-sage/50 transition-all">
+            <span class="material-symbols-outlined text-lg">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+
+
+      <!-- Full-width calming image -->
+      <div class="relative rounded-4xl overflow-hidden h-64 md:h-80 reveal">
+        <img src="metropolis.png" alt="Un entorno diseñado para la calma" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-sage-dark/70 via-sage-dark/30 to-transparent flex items-end justify-center pb-10">
+          <p class="font-serif text-white text-2xl md:text-3xl font-bold text-center">Un entorno diseñado para la calma</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-[#0F1A2E] text-white rounded-t-[80px] md:rounded-t-[100px] pt-16 pb-8 mt-10">
+    <div class="max-w-7xl mx-auto px-5 md:px-10">
+      <div class="grid md:grid-cols-3 gap-10 mb-12">
+        <div>
+          <h4 class="text-2xl font-bold mb-4"><span class="font-serif" style="color:#F2B89C">A</span><span class="font-serif" style="color:#95B5A4">L</span><span class="font-serif" style="color:#C9A8D8">M</span><span class="font-serif" style="color:#EDD06A">A</span></h4>
+          <p class="text-white/50 text-sm leading-relaxed">Consultorio de Psicología Infantil. Acompañamos a cada niño en su camino hacia el bienestar emocional.</p>
+        </div>
+        <div>
+          <h5 class="font-semibold mb-4 text-sm uppercase tracking-wider text-white/30">Navegación</h5>
+          <div class="flex flex-col gap-2">
+            <a href="#inicio" class="text-sm text-white/60 hover:text-[#FFE066] transition-colors">Inicio</a>
+            <a href="#servicios" class="text-sm text-white/60 hover:text-[#FFE066] transition-colors">Servicios</a>
+            <a href="#vision" class="text-sm text-white/60 hover:text-[#FFE066] transition-colors">Nuestra Visión</a>
+            <a href="#contacto" class="text-sm text-white/60 hover:text-[#FFE066] transition-colors">Contacto</a>
+          </div>
+        </div>
+        <div>
+          <h5 class="font-semibold mb-4 text-sm uppercase tracking-wider text-white/30">Conecta</h5>
+          <div class="flex gap-4 mb-4">
+            <a href="https://wa.me/50431673301" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+            </a>
+            <a href="tel:+50431673301" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+              <span class="material-symbols-outlined text-lg">call</span>
+            </a>
+          </div>
+          <p class="text-sm text-white/40">Honduras</p>
+        </div>
+      </div>
+      <div class="border-t border-white/10 pt-6 text-center">
+        <p class="text-xs text-white/30">&copy; 2026 ALMA Consultorio Infantil. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SERVICE MODAL -->
+  <div id="serviceModal" class="modal-overlay fixed inset-0 z-[100] hidden items-center justify-center p-5" onclick="if(event.target===this)closeModal()">
+    <div id="modalContent" class="bg-modal rounded-4xl p-8 md:p-10 max-w-lg w-full max-h-[85vh] overflow-y-auto relative">
+      <button onclick="closeModal()" class="absolute top-5 right-5 text-white/50 hover:text-white transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/50431673301" target="_blank" class="wa-float" aria-label="WhatsApp">
+    <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.472A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.17 0-4.19-.614-5.907-1.677l-.424-.252-2.742.874.873-2.666-.277-.44A9.798 9.798 0 012.182 12c0-5.423 4.395-9.818 9.818-9.818 5.423 0 9.818 4.395 9.818 9.818 0 5.423-4.395 9.818-9.818 9.818z"/>
+    </svg>
+  </a>
+
+  <script>
+    // ======== SERVICE DATA ========
+    var services = [
+      {
+        title: 'Evaluación Neuropsicológica',
+        subtitle: 'El mapa de su potencial',
+        desc: 'Realizamos una evaluación completa del desarrollo emocional, cognitivo y conductual de su hijo. Utilizamos herramientas estandarizadas y validadas para identificar fortalezas, áreas de apoyo y crear un plan de intervención personalizado.',
+        details: ['Evaluación cognitiva completa', 'Perfil emocional y conductual', 'Informe detallado para padres y escuela', 'Plan de intervención personalizado'],
+        wa: 'https://wa.me/50431673301?text=Hola,%20me%20interesa%20Evaluación%20Neuropsicológica',
+        icon: 'neurology'
+      },
+      {
+        title: 'Terapia de Juego y Regulación Emocional',
+        subtitle: 'Sanar en su lenguaje',
+        desc: 'El juego es el lenguaje natural de los niños. A través de técnicas terapéuticas basadas en el juego, ayudamos a los niños a expresar, comprender y regular sus emociones de manera segura y natural.',
+        details: ['Sesiones individuales y grupales', 'Técnicas de regulación emocional', 'Desarrollo de habilidades sociales', 'Acompañamiento a padres'],
+        wa: 'https://wa.me/50431673301?text=Hola,%20me%20interesa%20Terapia%20de%20Juego',
+        icon: 'toys'
+      },
+      {
+        title: 'Evaluación y Manejo de TDAH',
+        subtitle: 'De la distracción al enfoque',
+        desc: 'Ofrecemos una evaluación integral del Trastorno por Déficit de Atención e Hiperactividad. Diseñamos estrategias prácticas para el hogar y la escuela que permiten al niño desarrollar su máximo potencial.',
+        details: ['Evaluación diagnóstica completa', 'Estrategias para el aula', 'Orientación a padres', 'Seguimiento continuo'],
+        wa: 'https://wa.me/50431673301?text=Hola,%20me%20interesa%20Evaluación%20y%20Manejo%20de%20TDAH',
+        icon: 'target'
+      },
+      {
+        title: 'Orientación Vocacional',
+        subtitle: 'Decidir con propósito',
+        desc: 'Un proceso estructurado de autoconocimiento para jóvenes. Identificamos habilidades, talentos e intereses que les permitan tomar decisiones de vida con claridad, confianza y propósito.',
+        details: ['Test de aptitudes e intereses', 'Exploración de carreras', 'Sesiones de coaching individual', 'Informe de orientación completo'],
+        wa: 'https://wa.me/50431673301?text=Hola,%20me%20interesa%20Orientación%20Vocacional',
+        icon: 'explore'
+      }
+    ];
+
+    function openModal(index) {
+      var s = services[index];
+      var modal = document.getElementById('serviceModal');
+      var body = document.getElementById('modalBody');
+      var content = document.getElementById('modalContent');
+
+      // Build modal content using DOM methods for safety
+      body.textContent = '';
+
+      var header = document.createElement('div');
+      header.className = 'flex items-center gap-3 mb-6';
+
+      var iconWrap = document.createElement('div');
+      iconWrap.className = 'w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center';
+      var iconEl = document.createElement('span');
+      iconEl.className = 'material-symbols-outlined text-white';
+      iconEl.textContent = s.icon;
+      iconWrap.appendChild(iconEl);
+
+      var titleWrap = document.createElement('div');
+      var titleEl = document.createElement('h3');
+      titleEl.className = 'font-serif text-xl font-bold text-white';
+      titleEl.textContent = s.title;
+      var subtitleEl = document.createElement('p');
+      subtitleEl.className = 'text-white/40 text-sm italic';
+      subtitleEl.textContent = s.subtitle;
+      titleWrap.appendChild(titleEl);
+      titleWrap.appendChild(subtitleEl);
+
+      header.appendChild(iconWrap);
+      header.appendChild(titleWrap);
+      body.appendChild(header);
+
+      var descEl = document.createElement('p');
+      descEl.className = 'text-white/70 leading-relaxed mb-6 text-sm';
+      descEl.textContent = s.desc;
+      body.appendChild(descEl);
+
+      var list = document.createElement('ul');
+      list.className = 'space-y-2 mb-8';
+      s.details.forEach(function(d) {
+        var li = document.createElement('li');
+        li.className = 'flex items-start gap-2 text-sm text-white/60';
+        var check = document.createElement('span');
+        check.className = 'material-symbols-outlined text-sage text-base mt-0.5';
+        check.textContent = 'check_circle';
+        li.appendChild(check);
+        li.appendChild(document.createTextNode(d));
+        list.appendChild(li);
+      });
+      body.appendChild(list);
+
+      var waLink = document.createElement('a');
+      waLink.href = s.wa;
+      waLink.target = '_blank';
+      waLink.className = 'cta-lift inline-flex items-center gap-2 bg-[#25D366] text-white font-semibold px-6 py-3 rounded-full text-sm';
+      var waSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      waSvg.setAttribute('class', 'w-4 h-4');
+      waSvg.setAttribute('fill', 'currentColor');
+      waSvg.setAttribute('viewBox', '0 0 24 24');
+      var p1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p1.setAttribute('d', 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z');
+      var p2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p2.setAttribute('d', 'M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.472A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.17 0-4.19-.614-5.907-1.677l-.424-.252-2.742.874.873-2.666-.277-.44A9.798 9.798 0 012.182 12c0-5.423 4.395-9.818 9.818-9.818 5.423 0 9.818 4.395 9.818 9.818 0 5.423-4.395 9.818-9.818 9.818z');
+      waSvg.appendChild(p1);
+      waSvg.appendChild(p2);
+      waLink.appendChild(waSvg);
+      waLink.appendChild(document.createTextNode('Agendar por WhatsApp'));
+      body.appendChild(waLink);
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      content.classList.remove('modal-content-anim');
+      void content.offsetWidth;
+      content.classList.add('modal-content-anim');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('serviceModal').classList.add('hidden');
+      document.getElementById('serviceModal').classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    // ======== MOBILE MENU ========
+    var menuToggle = document.getElementById('menuToggle');
+    var menuClose = document.getElementById('menuClose');
+    var mobileMenu = document.getElementById('mobileMenu');
+    menuToggle.addEventListener('click', function() { mobileMenu.classList.add('open'); });
+    menuClose.addEventListener('click', function() { mobileMenu.classList.remove('open'); });
+    document.querySelectorAll('.mobile-link').forEach(function(link) {
+      link.addEventListener('click', function() { mobileMenu.classList.remove('open'); });
+    });
+
+    // ======== NAVBAR SCROLL ========
+    var navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ======== HERO PARTICLES (Canvas) ========
+    (function() {
+      var canvas = document.getElementById('heroCanvas');
+      var ctx = canvas.getContext('2d');
+      var particles = [];
+      var PARTICLE_COUNT = 50;
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      for (var i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 3 + 1.5,
+          dx: (Math.random() - 0.5) * 0.3,
+          dy: (Math.random() - 0.5) * 0.3,
+          opacity: Math.random() * 0.3 + 0.1
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(function(p) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(212, 184, 255, ' + p.opacity + ')';
+          ctx.fill();
+          p.x += p.dx;
+          p.y += p.dy;
+          if (p.x < -10) p.x = canvas.width + 10;
+          if (p.x > canvas.width + 10) p.x = -10;
+          if (p.y < -10) p.y = canvas.height + 10;
+          if (p.y > canvas.height + 10) p.y = -10;
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    // ======== SCROLL REVEAL (Intersection Observer fallback) ========
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+
+    // ======== GSAP SCROLL ANIMATIONS ========
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Fade-up for reveals (enhanced)
+    gsap.utils.toArray('.reveal').forEach(function(el) {
+      gsap.fromTo(el, { y: 40, opacity: 0 }, {
+        y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+      });
+    });
+
+    // Parallax on gallery images
+    gsap.utils.toArray('.gallery-item img').forEach(function(img) {
+      gsap.to(img, {
+        yPercent: -8,
+        ease: 'none',
+        scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: 1 }
+      });
+    });
+
+    // Parallax on service images
+    gsap.utils.toArray('.service-img-wrap img').forEach(function(img) {
+      gsap.to(img, {
+        yPercent: -6,
+        ease: 'none',
+        scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: 1.5 }
+      });
+    });
+
+    // Quote zoom-in
+    gsap.from('blockquote', {
+      scale: 0.9, opacity: 0, duration: 1.2, ease: 'power2.out',
+      scrollTrigger: { trigger: 'blockquote', start: 'top 80%' }
+    });
+
+    // Close modal on ESC
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+    // ======== MOUSE PARALLAX (Hero spheres + blob) ========
+    (function() {
+      var layers = document.querySelectorAll('.mouse-parallax-layer');
+      var mouseX = 0, mouseY = 0;
+      var curX = 0, curY = 0;
+
+      document.addEventListener('mousemove', function(e) {
+        mouseX = (e.clientX / window.innerWidth  - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      });
+
+      (function animate() {
+        // lerp smoothing
+        curX += (mouseX - curX) * 0.06;
+        curY += (mouseY - curY) * 0.06;
+        layers.forEach(function(el) {
+          var speed = parseFloat(el.dataset.speed) || 2;
+          var tx = curX * speed * 18;
+          var ty = curY * speed * 12;
+          el.style.transform = 'translate3d(' + tx + 'px,' + ty + 'px, 0)';
+        });
+        requestAnimationFrame(animate);
+      })();
+    })();
+
+    // ======== MOUSE-TRACKING 3D TILT (service cards + tilt-3d) ========
+    (function() {
+      function addTilt(el) {
+        var inner = el.querySelector('.tilt-3d-inner') || el;
+        el.addEventListener('mousemove', function(e) {
+          var rect = el.getBoundingClientRect();
+          var x = (e.clientX - rect.left) / rect.width  - 0.5;
+          var y = (e.clientY - rect.top)  / rect.height - 0.5;
+          inner.style.transform = [
+            'perspective(1000px)',
+            'rotateY(' + (x * 16) + 'deg)',
+            'rotateX(' + (-y * 12) + 'deg)',
+            'translateZ(12px)',
+            'scale(1.02)'
+          ].join(' ');
+        });
+        el.addEventListener('mouseleave', function() {
+          inner.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) translateZ(0) scale(1)';
+          inner.style.transition = 'transform 0.6s cubic-bezier(0.03,0.98,0.52,0.99)';
+        });
+        el.addEventListener('mouseenter', function() {
+          inner.style.transition = 'transform 0.15s ease-out';
+        });
+      }
+
+      // Apply to service image wrappers
+      document.querySelectorAll('.service-img-wrap').forEach(addTilt);
+      // Apply to tilt-3d elements
+      document.querySelectorAll('.tilt-3d').forEach(addTilt);
+    })();
+
+    // ======== STAGGERED 3D ENTRANCE (methodology flip cards + trust pillars) ========
+    (function() {
+      var staggerObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          var container = entry.target;
+          var children = container.querySelectorAll('.flip-card, .tilt-card');
+          children.forEach(function(child, i) {
+            setTimeout(function() {
+              child.style.opacity = '1';
+              child.style.transform = 'translateY(0) rotateX(0deg)';
+              child.style.transition = 'all 0.7s cubic-bezier(0.34,1.56,0.64,1)';
+            }, i * 120);
+          });
+          staggerObs.unobserve(container);
+        });
+      }, { threshold: 0.2 });
+
+      // Observe grids that contain cards
+      document.querySelectorAll('.grid').forEach(function(grid) {
+        if (grid.querySelector('.flip-card, .tilt-card')) {
+          grid.querySelectorAll('.flip-card, .tilt-card').forEach(function(card) {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px) rotateX(12deg)';
+            card.style.transformOrigin = 'bottom center';
+          });
+          staggerObs.observe(grid);
+        }
+      });
+    })();
+
+    // ======== SCROLL 3D SECTION TILT ========
+    (function() {
+      var serviceSections = document.querySelectorAll('#servicios .grid');
+      serviceSections.forEach(function(grid) {
+        gsap.fromTo(grid,
+          { rotateX: 4, transformPerspective: 1400, opacity: 0.6 },
+          { rotateX: 0, opacity: 1, duration: 1.2, ease: 'power2.out',
+            scrollTrigger: { trigger: grid, start: 'top 80%', toggleActions: 'play none none none' }
+          }
+        );
+      });
+
+      // Vision section quote 3D scale
+      gsap.fromTo('blockquote',
+        { scale: 0.88, rotateX: 8, transformPerspective: 1200, opacity: 0 },
+        { scale: 1, rotateX: 0, opacity: 1, duration: 1.4, ease: 'power3.out',
+          scrollTrigger: { trigger: 'blockquote', start: 'top 75%' }
+        }
+      );
+    })();
+
+    // ======== TESTIMONIAL CAROUSEL ========
+    (function() {
+      var track = document.getElementById('testimonialTrack');
+      var dots  = document.querySelectorAll('.testimonial-dot');
+      var cards = document.querySelectorAll('.testimonial-card');
+      var prev  = document.getElementById('tPrev');
+      var next  = document.getElementById('tNext');
+      if (!track || !cards.length) return;
+
+      var current = 0;
+      var total   = cards.length;
+      var autoTimer;
+
+      // How many cards visible at once based on viewport
+      function visibleCount() {
+        if (window.innerWidth >= 768) return 2;
+        return 1;
+      }
+
+      function goTo(index) {
+        var maxIndex = total - visibleCount();
+        current = Math.max(0, Math.min(index, maxIndex));
+        // Each card is (100 / visibleCount)% wide → move by card width
+        var pct = current * (100 / visibleCount());
+        track.style.transform = 'translateX(-' + pct + '%)';
+
+        dots.forEach(function(d, i) {
+          if (i === current) {
+            d.classList.add('active');
+          } else {
+            d.classList.remove('active');
+          }
+        });
+      }
+
+      dots.forEach(function(d) {
+        d.addEventListener('click', function() {
+          clearInterval(autoTimer);
+          goTo(parseInt(d.dataset.index));
+          startAuto();
+        });
+      });
+      if (prev) prev.addEventListener('click', function() { clearInterval(autoTimer); goTo(current - 1); startAuto(); });
+      if (next) next.addEventListener('click', function() { clearInterval(autoTimer); goTo(current + 1); startAuto(); });
+
+      function startAuto() {
+        autoTimer = setInterval(function() {
+          goTo(current + 1 > total - visibleCount() ? 0 : current + 1);
+        }, 4500);
+      }
+
+      // Touch swipe
+      var startX = 0;
+      track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', function(e) {
+        var diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) { clearInterval(autoTimer); goTo(current + (diff > 0 ? 1 : -1)); startAuto(); }
+      });
+
+      startAuto();
+      goTo(0);
+    })();
+
+    // ======== SCROLL PROGRESS BAR ========
+    (function() {
+      var bar = document.getElementById('scroll-progress');
+      if (!bar) return;
+      function updateBar() {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = (max > 0 ? window.scrollY / max * 100 : 0).toFixed(2) + '%';
+      }
+      window.addEventListener('scroll', updateBar, { passive: true });
+      updateBar();
+    })();
+
+    // ======== CUSTOM CURSOR (desktop only) ========
+    (function() {
+      var follower = document.querySelector('.cursor-follower');
+      var dot      = document.querySelector('.cursor-dot-center');
+      if (!follower || !dot || window.matchMedia('(pointer:coarse)').matches) return;
+      document.body.style.cursor = 'none';
+      var fx = -200, fy = -200, cx = -200, cy = -200;
+      document.addEventListener('mousemove', function(e) {
+        cx = e.clientX; cy = e.clientY;
+        dot.style.left = cx + 'px'; dot.style.top = cy + 'px';
+      });
+      (function loop() {
+        fx += (cx - fx) * 0.11;
+        fy += (cy - fy) * 0.11;
+        follower.style.left = fx + 'px'; follower.style.top = fy + 'px';
+        requestAnimationFrame(loop);
+      })();
+      document.querySelectorAll('a, button, .tilt-card, .flip-card, .gallery-item, .testimonial-card').forEach(function(el) {
+        el.addEventListener('mouseenter', function() {
+          follower.style.width  = '64px'; follower.style.height = '64px';
+          follower.style.borderColor = 'rgba(201,168,216,0.75)';
+        });
+        el.addEventListener('mouseleave', function() {
+          follower.style.width  = '42px'; follower.style.height = '42px';
+          follower.style.borderColor = 'rgba(242,184,156,0.55)';
+        });
+      });
+    })();
+
+    // ======== GSAP LUXURY SCROLL EFFECTS ========
+    (function() {
+
+      // 1. Section headings — blur-to-focus reveal
+      gsap.utils.toArray('h2').forEach(function(h) {
+        gsap.from(h, {
+          opacity: 0, y: 45, filter: 'blur(12px)',
+          duration: 1.3, ease: 'power3.out',
+          scrollTrigger: { trigger: h, start: 'top 88%', toggleActions: 'play none none none' }
+        });
+      });
+
+      // 2. Blockquote — cinematic 3D depth entrance
+      gsap.from('blockquote', {
+        scale: 0.82, rotateX: 18, z: -250, opacity: 0, filter: 'blur(18px)',
+        duration: 2, ease: 'expo.out', transformPerspective: 1400,
+        clearProps: 'filter',
+        scrollTrigger: { trigger: 'blockquote', start: 'top 78%' }
+      });
+
+      // 3. Background blobs parallax (depth atmosphere)
+      gsap.utils.toArray('.pulse-blob').forEach(function(blob, i) {
+        gsap.to(blob, {
+          y: i % 2 === 0 ? -140 : 100,
+          x: i % 3 === 0 ? 60 : -40,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: blob.closest('section') || blob,
+            start: 'top bottom', end: 'bottom top', scrub: 3
+          }
+        });
+      });
+
+      // 4. Hero blob image parallax
+      gsap.to('.blob-shape img', {
+        yPercent: -18, ease: 'none',
+        scrollTrigger: { trigger: '#inicio', start: 'top top', end: 'bottom top', scrub: 1.8 }
+      });
+
+      // 5. Hero spheres subtle scale on scroll exit
+      gsap.to('.sphere-3d', {
+        scale: 0.3, opacity: 0, ease: 'none',
+        scrollTrigger: { trigger: '#inicio', start: 'center top', end: 'bottom top', scrub: 1 }
+      });
+
+      // 6. Testimonial cards 3D swoop from depth — staggered
+      var testimonialCards = gsap.utils.toArray('.testimonial-card .relative');
+      testimonialCards.forEach(function(card, i) {
+        gsap.from(card, {
+          opacity: 0, z: -280, scale: 0.75,
+          rotateY: i % 2 === 0 ? -18 : 18,
+          rotateX: 8,
+          duration: 1.4, ease: 'power4.out',
+          delay: i * 0.12,
+          transformPerspective: 1300,
+          scrollTrigger: {
+            trigger: card.closest('#contacto') || card,
+            start: 'top 82%', toggleActions: 'play none none none'
+          }
+        });
+      });
+
+      // 7. Contact form — float up with 3D tilt
+      gsap.from('.form-glass', {
+        opacity: 0, y: 90, rotateX: 14, scale: 0.93,
+        duration: 1.6, ease: 'power3.out', transformPerspective: 1200,
+        scrollTrigger: { trigger: '.form-glass', start: 'top 84%' }
+      });
+
+      // 8. Trust pillars stagger 3D cascade
+      gsap.from(gsap.utils.toArray('.tilt-card'), {
+        opacity: 0, y: 70, rotateY: function(i){ return i % 2 === 0 ? -12 : 12; },
+        z: -120, stagger: 0.14, duration: 1.1,
+        ease: 'back.out(1.6)', transformPerspective: 1200,
+        scrollTrigger: { trigger: '.tilt-card', start: 'top 84%', toggleActions: 'play none none none' }
+      });
+
+      // 9. Gallery images — staggered depth pop
+      gsap.utils.toArray('.gallery-item').forEach(function(item, i) {
+        gsap.from(item, {
+          opacity: 0, scale: 0.88, z: -100, y: 40,
+          duration: 1, ease: 'power2.out',
+          delay: i * 0.09, transformPerspective: 1000,
+          scrollTrigger: { trigger: item, start: 'top 90%', toggleActions: 'play none none none' }
+        });
+      });
+
+      // 10. Service sections — text slides from side, image from opposite
+      gsap.utils.toArray('#servicios .grid').forEach(function(grid, i) {
+        var textEl = grid.querySelector('div.order-1, div:not(.service-img-wrap)');
+        var imgEl  = grid.querySelector('.service-img-wrap');
+        var dir    = i % 2 === 0 ? -80 : 80;
+        if (textEl) gsap.from(textEl, {
+          x: dir, opacity: 0, duration: 1.3, ease: 'power3.out',
+          scrollTrigger: { trigger: grid, start: 'top 78%', toggleActions: 'play none none none' }
+        });
+        if (imgEl)  gsap.from(imgEl, {
+          x: -dir, opacity: 0, rotateY: dir > 0 ? -10 : 10, z: -80,
+          duration: 1.5, ease: 'power3.out', transformPerspective: 1000,
+          scrollTrigger: { trigger: grid, start: 'top 78%', toggleActions: 'play none none none' }
+        });
+      });
+
+      // 11. Footer rise
+      gsap.from('footer', {
+        y: 70, opacity: 0, rotateX: 10, scale: 0.98,
+        duration: 1.5, ease: 'power3.out', transformPerspective: 1600,
+        scrollTrigger: { trigger: 'footer', start: 'top 95%' }
+      });
+
+      // 12. Section badge chips — pop in with spring
+      gsap.utils.toArray('.badge-chip').forEach(function(chip, i) {
+        gsap.from(chip, {
+          scale: 0, opacity: 0, rotation: -10,
+          duration: 0.6, ease: 'back.out(2.5)',
+          scrollTrigger: { trigger: chip, start: 'top 90%', toggleActions: 'play none none none' }
+        });
+      });
+
+      // 13. Vision portrait arch — slide from depth
+      gsap.from('.arch-clip', {
+        opacity: 0, z: -200, scale: 0.8, rotateY: -15,
+        duration: 1.8, ease: 'power4.out', transformPerspective: 1200,
+        scrollTrigger: { trigger: '.arch-clip', start: 'top 80%' }
+      });
+
+    })();
+
+    // ======== MAGNETIC BUTTONS ========
+    (function() {
+      document.querySelectorAll('.cta-lift').forEach(function(btn) {
+        btn.addEventListener('mousemove', function(e) {
+          var r  = btn.getBoundingClientRect();
+          var dx = e.clientX - r.left - r.width  / 2;
+          var dy = e.clientY - r.top  - r.height / 2;
+          btn.style.transform = 'translate(' + (dx * 0.28) + 'px,' + (dy * 0.4 - 3) + 'px)';
+        });
+        btn.addEventListener('mouseleave', function() {
+          btn.style.transition = 'transform 0.55s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s';
+          btn.style.transform  = '';
+        });
+        btn.addEventListener('mouseenter', function() {
+          btn.style.transition = 'transform 0.1s ease-out';
+        });
+      });
+    })();
+
+  </script>
+</body>
+</html>
