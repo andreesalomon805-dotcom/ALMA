@@ -170,8 +170,8 @@
     }
 
     /* Scroll reveal base */
-    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-    .reveal.active { opacity: 1; transform: translateY(0); }
+    .reveal { opacity: 1; }
+    .reveal.active { opacity: 1; }
 
     /* Hero canvas */
     #heroCanvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
@@ -414,12 +414,9 @@
       z-index: 9999; transform: translate(-50%, -50%);
     }
 
-    /* Enhanced reveal — blur + Y (luxury feel) */
-    .reveal { opacity: 0; transform: translateY(50px); filter: blur(6px);
-      transition: opacity 0.95s cubic-bezier(0.4, 0, 0.2, 1),
-                  transform 0.95s cubic-bezier(0.4, 0, 0.2, 1),
-                  filter 0.95s cubic-bezier(0.4, 0, 0.2, 1); }
-    .reveal.active { opacity: 1; transform: translateY(0); filter: blur(0); }
+    /* Scroll reveal */
+    .reveal { opacity: 1; }
+    .reveal.active { opacity: 1; }
 
     /* Marquee ticker */
     @keyframes marquee-run {
@@ -794,12 +791,9 @@
         </div>
         <div class="reveal">
           <span class="badge-chip bg-sage/10 text-sage mb-4 inline-block">Dirección Clínica</span>
-          <h2 class="font-serif text-3xl md:text-4xl font-bold text-sage-dark mb-4">Ana Lucía Martínez</h2>
+          <h2 class="font-serif text-3xl md:text-4xl font-bold text-sage-dark mb-4">Ana Lucía Martínez Alvarado</h2>
           <p class="text-sage/70 leading-relaxed mb-6 text-base md:text-lg">
-            Fundadora de ALMA y especialista en neuropsicología infantil, Ana Lucía ha dedicado años a redefinir el acompañamiento terapéutico, priorizando la conexión humana.
-          </p>
-          <p class="text-sage/50 text-sm leading-relaxed">
-            Su filosofía se centra en entender que detrás de cada comportamiento hay una emoción, y detrás de cada emoción hay un niño que necesita ser escuchado.
+            Fundadora de ALMA y Psicóloga con enfoque infantil, Ms. Ana acompaña a niños y sus familias en su desarrollo emocional, conductual y cognitivo. Su enfoque se basa en una atención personalizada, donde el juego, la evaluación psicológica y la conexión humana son pilares fundamentales para promover el bienestar infantil.
           </p>
         </div>
       </div>
@@ -1312,26 +1306,23 @@
       draw();
     })();
 
-    // ======== SCROLL REVEAL (Intersection Observer fallback) ========
+    // ======== SCROLL REVEAL ========
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
+          observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }, { threshold: 0, rootMargin: '200px 0px 200px 0px' });
     document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+    // Fallback: ensure all reveals become visible after 2s regardless
+    setTimeout(function(){ document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('active'); }); }, 2000);
 
     // ======== GSAP SCROLL ANIMATIONS ========
     gsap.registerPlugin(ScrollTrigger);
 
-    // Fade-up for reveals (enhanced)
-    gsap.utils.toArray('.reveal').forEach(function(el) {
-      gsap.fromTo(el, { y: 40, opacity: 0 }, {
-        y: 0, opacity: 1, duration: 1, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
-      });
-    });
+    // Reveal handled by IntersectionObserver above
 
     // Parallax on gallery images
     gsap.utils.toArray('.gallery-item img').forEach(function(img) {
