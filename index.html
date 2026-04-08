@@ -1337,8 +1337,8 @@
 
     // Quote zoom-in
     gsap.from('blockquote', {
-      scale: 0.9, opacity: 0, duration: 1.2, ease: 'power2.out',
-      scrollTrigger: { trigger: 'blockquote', start: 'top 80%' }
+      scale: 0.9, duration: 1.2, ease: 'power2.out',
+      scrollTrigger: { trigger: 'blockquote', start: 'top bottom' }
     });
 
     // Close modal on ESC
@@ -1422,7 +1422,6 @@
       document.querySelectorAll('.grid').forEach(function(grid) {
         if (grid.querySelector('.flip-card, .tilt-card')) {
           grid.querySelectorAll('.flip-card, .tilt-card').forEach(function(card) {
-            card.style.opacity = '0';
             card.style.transform = 'translateY(50px) rotateX(12deg)';
             card.style.transformOrigin = 'bottom center';
           });
@@ -1436,18 +1435,18 @@
       var serviceSections = document.querySelectorAll('#servicios .grid');
       serviceSections.forEach(function(grid) {
         gsap.fromTo(grid,
-          { rotateX: 4, transformPerspective: 1400, opacity: 0.6 },
-          { rotateX: 0, opacity: 1, duration: 1.2, ease: 'power2.out',
-            scrollTrigger: { trigger: grid, start: 'top 80%', toggleActions: 'play none none none' }
+          { rotateX: 4, transformPerspective: 1400 },
+          { rotateX: 0, duration: 1.2, ease: 'power2.out',
+            scrollTrigger: { trigger: grid, start: 'top bottom', toggleActions: 'play none none none' }
           }
         );
       });
 
       // Vision section quote 3D scale
       gsap.fromTo('blockquote',
-        { scale: 0.88, rotateX: 8, transformPerspective: 1200, opacity: 0 },
-        { scale: 1, rotateX: 0, opacity: 1, duration: 1.4, ease: 'power3.out',
-          scrollTrigger: { trigger: 'blockquote', start: 'top 75%' }
+        { scale: 0.88, rotateX: 8, transformPerspective: 1200 },
+        { scale: 1, rotateX: 0, duration: 1.4, ease: 'power3.out',
+          scrollTrigger: { trigger: 'blockquote', start: 'top bottom' }
         }
       );
     })();
@@ -1562,18 +1561,17 @@
       // 1. Section headings — blur-to-focus reveal
       gsap.utils.toArray('h2').forEach(function(h) {
         gsap.from(h, {
-          opacity: 0, y: 45, filter: 'blur(12px)',
+          y: 45,
           duration: 1.3, ease: 'power3.out',
-          scrollTrigger: { trigger: h, start: 'top 88%', toggleActions: 'play none none none' }
+          scrollTrigger: { trigger: h, start: 'top bottom', toggleActions: 'play none none none' }
         });
       });
 
       // 2. Blockquote — cinematic 3D depth entrance
       gsap.from('blockquote', {
-        scale: 0.82, rotateX: 18, z: -250, opacity: 0, filter: 'blur(18px)',
+        scale: 0.82, rotateX: 18, z: -250,
         duration: 2, ease: 'expo.out', transformPerspective: 1400,
-        clearProps: 'filter',
-        scrollTrigger: { trigger: 'blockquote', start: 'top 78%' }
+        scrollTrigger: { trigger: 'blockquote', start: 'top bottom' }
       });
 
       // 3. Background blobs parallax (depth atmosphere)
@@ -1605,7 +1603,7 @@
       var testimonialCards = gsap.utils.toArray('.testimonial-card .relative');
       testimonialCards.forEach(function(card, i) {
         gsap.from(card, {
-          opacity: 0, z: -280, scale: 0.75,
+          z: -280, scale: 0.75,
           rotateY: i % 2 === 0 ? -18 : 18,
           rotateX: 8,
           duration: 1.4, ease: 'power4.out',
@@ -1613,33 +1611,33 @@
           transformPerspective: 1300,
           scrollTrigger: {
             trigger: card.closest('#contacto') || card,
-            start: 'top 82%', toggleActions: 'play none none none'
+            start: 'top bottom', toggleActions: 'play none none none'
           }
         });
       });
 
       // 7. Contact form — float up with 3D tilt
       gsap.from('.form-glass', {
-        opacity: 0, y: 90, rotateX: 14, scale: 0.93,
+        y: 90, rotateX: 14, scale: 0.93,
         duration: 1.6, ease: 'power3.out', transformPerspective: 1200,
-        scrollTrigger: { trigger: '.form-glass', start: 'top 84%' }
+        scrollTrigger: { trigger: '.form-glass', start: 'top bottom' }
       });
 
       // 8. Trust pillars stagger 3D cascade
       gsap.from(gsap.utils.toArray('.tilt-card'), {
-        opacity: 0, y: 70, rotateY: function(i){ return i % 2 === 0 ? -12 : 12; },
+        y: 70, rotateY: function(i){ return i % 2 === 0 ? -12 : 12; },
         z: -120, stagger: 0.14, duration: 1.1,
         ease: 'back.out(1.6)', transformPerspective: 1200,
-        scrollTrigger: { trigger: '.tilt-card', start: 'top 84%', toggleActions: 'play none none none' }
+        scrollTrigger: { trigger: '.tilt-card', start: 'top bottom', toggleActions: 'play none none none' }
       });
 
       // 9. Gallery images — staggered depth pop
       gsap.utils.toArray('.gallery-item').forEach(function(item, i) {
         gsap.from(item, {
-          opacity: 0, scale: 0.88, z: -100, y: 40,
+          scale: 0.88, z: -100, y: 40,
           duration: 1, ease: 'power2.out',
           delay: i * 0.09, transformPerspective: 1000,
-          scrollTrigger: { trigger: item, start: 'top 90%', toggleActions: 'play none none none' }
+          scrollTrigger: { trigger: item, start: 'top bottom', toggleActions: 'play none none none' }
         });
       });
 
@@ -1649,37 +1647,37 @@
         var imgEl  = grid.querySelector('.service-img-wrap');
         var dir    = i % 2 === 0 ? -80 : 80;
         if (textEl) gsap.from(textEl, {
-          x: dir, opacity: 0, duration: 1.3, ease: 'power3.out',
-          scrollTrigger: { trigger: grid, start: 'top 78%', toggleActions: 'play none none none' }
+          x: dir, duration: 1.3, ease: 'power3.out',
+          scrollTrigger: { trigger: grid, start: 'top bottom', toggleActions: 'play none none none' }
         });
         if (imgEl)  gsap.from(imgEl, {
-          x: -dir, opacity: 0, rotateY: dir > 0 ? -10 : 10, z: -80,
+          x: -dir, rotateY: dir > 0 ? -10 : 10, z: -80,
           duration: 1.5, ease: 'power3.out', transformPerspective: 1000,
-          scrollTrigger: { trigger: grid, start: 'top 78%', toggleActions: 'play none none none' }
+          scrollTrigger: { trigger: grid, start: 'top bottom', toggleActions: 'play none none none' }
         });
       });
 
       // 11. Footer rise
       gsap.from('footer', {
-        y: 70, opacity: 0, rotateX: 10, scale: 0.98,
+        y: 70, rotateX: 10, scale: 0.98,
         duration: 1.5, ease: 'power3.out', transformPerspective: 1600,
-        scrollTrigger: { trigger: 'footer', start: 'top 95%' }
+        scrollTrigger: { trigger: 'footer', start: 'top bottom' }
       });
 
       // 12. Section badge chips — pop in with spring
       gsap.utils.toArray('.badge-chip').forEach(function(chip, i) {
         gsap.from(chip, {
-          scale: 0, opacity: 0, rotation: -10,
+          scale: 0, rotation: -10,
           duration: 0.6, ease: 'back.out(2.5)',
-          scrollTrigger: { trigger: chip, start: 'top 90%', toggleActions: 'play none none none' }
+          scrollTrigger: { trigger: chip, start: 'top bottom', toggleActions: 'play none none none' }
         });
       });
 
       // 13. Vision portrait arch — slide from depth
       gsap.from('.arch-clip', {
-        opacity: 0, z: -200, scale: 0.8, rotateY: -15,
+        z: -200, scale: 0.8, rotateY: -15,
         duration: 1.8, ease: 'power4.out', transformPerspective: 1200,
-        scrollTrigger: { trigger: '.arch-clip', start: 'top 80%' }
+        scrollTrigger: { trigger: '.arch-clip', start: 'top bottom' }
       });
 
     })();
